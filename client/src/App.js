@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { history } from "./Utils/history";
 import { Router, Route, Switch } from "react-router-dom";
 import Main from './Screens/Main';
+import Profile from './Screens/Profile';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Main} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </Router>
     </PersistGate>

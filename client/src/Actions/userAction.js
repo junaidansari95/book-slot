@@ -1,5 +1,16 @@
 import axios from 'axios';
 
+export const getPeople = () => dispatch => {
+  dispatch({ type: 'GET_ALL_USERS_REQUEST' })
+  axios.get('https://reqres.in/api/users')
+    .then(result => {
+      dispatch({ type: 'GET_ALL_USERS_SUCCESS', payload: result.data.data })
+    })
+    .catch(err => {
+      dispatch({ type: 'GET_ALL_USERS_FAILURE', payload: err.response })
+    });
+};
+
 export const getUsers = () => dispatch => {
   dispatch({ type: 'GET_ALL_USERS_REQUEST' })
   axios.get('/api/v1/users/')
