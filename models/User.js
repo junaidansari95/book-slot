@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please provide avatar']
     },
     slot: {
-        type: Date,
+        type: String,
         trim: true,
         required: [true, 'Please provide slot']
     },

@@ -7,6 +7,7 @@ import { history } from "./Utils/history";
 import { Router, Route, Switch } from "react-router-dom";
 import Main from './Screens/Main';
 import Profile from './Screens/Profile';
+import AllSlots from './Screens/AllSlots';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/slots" component={AllSlots} />
         </Switch>
       </Router>
     </PersistGate>

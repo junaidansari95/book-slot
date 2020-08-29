@@ -1,4 +1,4 @@
-const initialState = {};
+const initialState = { isAddSlotRequestLoading: false };
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'GET_ALL_USERS_REQUEST':
@@ -13,17 +13,29 @@ export default (state = initialState, action) => {
             return {
                 ...state, isGetUsersRequestLoading: false
             }
-        case 'ADD_USER_REQUEST':
+        case 'ADD_NEW_SLOT_REQUEST':
             return {
-                ...state, isAddUserRequestLoading: true
+                ...state, isAddSlotRequestLoading: true
             }
-        case 'ADD_USER_SUCCESS':
+        case "GET_ALL_SLOTS_REQUEST":
             return {
-                ...state, isAddUserRequestLoading: false, added_user: action.payload
+                ...state, isGetAllSlotsRequestLoading: true
             }
-        case 'ADD_USER_FAILURE':
+        case "GET_ALL_SLOTS_SUCCESS":
             return {
-                ...state, isAddUserRequestLoading: false
+                ...state, isGetAllSlotsRequestLoading: false, all_slots: action.payload
+            }
+        case "GET_ALL_SLOTS_FAILURE":
+            return {
+                ...state, isGetAllSlotsRequestLoading: false
+            }
+        case 'ADD_NEW_SLOT_SUCCESS':
+            return {
+                ...state, isAddSlotRequestLoading: false, added_user: action.payload
+            }
+        case 'ADD_NEW_SLOT_FAILURE':
+            return {
+                ...state, isAddSlotRequestLoading: false
             }
         case 'DELETE_USER_REQUEST':
             return {

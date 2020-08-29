@@ -1,11 +1,11 @@
 import React from "react";
 import '../App.css';
-import { Box, OutlinedInput, InputAdornment, Typography, Card, CardContent, TextField, Button, Avatar } from "@material-ui/core";
+import { Box, OutlinedInput, InputAdornment, Typography, Card, CardContent, Avatar } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { history } from "../Utils/history";
-import { getPeople, addUser } from "../Actions/userAction";
+import { getPeople, getSlots } from "../Actions/userAction";
 
 class Main extends React.PureComponent {
     constructor(props) {
@@ -20,6 +20,7 @@ class Main extends React.PureComponent {
     }
     componentDidMount() {
         this.props.getPeople();
+        this.props.getSlots();
     }
     handleChange = event => {
         this.setState({ searchString: event.target.value.trim().toLowerCase() });
@@ -33,17 +34,6 @@ class Main extends React.PureComponent {
     handleLocationChange = event => {
         this.setState({ location: event.target.value });
     }
-    handlePersonSubmit = event => {
-        event.preventDefault();
-        this.props.addUser({
-            name: this.state.name,
-            address: this.state.location
-        });
-        this.setState({
-            name: null,
-            location: null
-        })
-    }
     render() {
         var { searchString } = this.state;
         const { all_users } = this.props;
@@ -55,6 +45,7 @@ class Main extends React.PureComponent {
         }
         return (
             <Box>
+                <Typography variant="h5" gutterBottom onClick={() => history.push('/slots')} align="right" style={{cursor:'pointer', color:'blue'}}>All Slots{">"}</Typography>
                 <Box style={{ margin: 'auto', width: 500, display: 'flex', justifyContent: 'center', marginTop: 180, marginBottom: 100 }}>
                     <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <Typography variant="h4" gutterBottom align='center'>Who</Typography>
@@ -69,7 +60,7 @@ class Main extends React.PureComponent {
                         <Box className="grid-row">
                             {
                                 (undefined !== all_users && all_users.length) ? text.map(index => {
-                                    return <Card className="card-root" variant="outlined" key={index.id} onClick={()=>history.push({ path: '/profile', state: index })}>
+                                    return <Card className="card-root" variant="outlined" key={index.id} onClick={()=>history.push({ pathname: '/profile', state: index })}>
                                         <CardContent style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <Avatar alt={index.first_name} src={index.avatar} />
                                             <Typography variant="h5" component="h2">
@@ -91,4 +82,4 @@ const mapStateToProps = state => {
     const { all_users } = user;
     return ({ all_users })
 };
-export default connect(mapStateToProps, { getPeople, addUser })(withRouter(Main));
+export default connect(mapStateToProps, { getPeople, getSlots })(withRouter(Main));
